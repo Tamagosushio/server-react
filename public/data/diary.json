@@ -1,0 +1,14 @@
+[
+  {
+    "id": "article-1",
+    "title": "日記の記事1",
+    "description": "これは日記の記事の説明です。",
+    "image": "/images/sample1.jpg"
+  },
+  {
+    "id": "article-2",
+    "title": "日記の記事2",
+    "description": "これは別の日記の記事の説明です。",
+    "image": "/images/sample2.jpg"
+  }
+]
