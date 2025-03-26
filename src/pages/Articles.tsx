@@ -2,26 +2,24 @@ import { useState, useEffect } from "react";
 import ArticleCard from "../components/ArticleCard";
 import "./Articles.css";
 
-function Articles(){
-  const [categories, setCategories] = useState<{ id: string; name: string }[]>(
-    []
-  );
+function Articles() {
+  const [categories, setCategories] = useState<{ id: string; name: string }[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [articles, setArticles] = useState<
-    {id:number; title:string; description:string; image:string; link:string}[]
-  >([]);
+  const [articles, setArticles] = useState<{ id: number; title: string; description: string; image: string }[]>([]);
+
   // 記事カテゴリ取得
   useEffect(() => {
     fetch("/data/categories.json")
       .then((res) => res.json())
       .then((data) => {
         setCategories(data);
-        if(data.length > 0) setSelectedCategory(data[0].id);
+        if (data.length > 0) setSelectedCategory(data[0].id);
       });
   }, []);
+
   // 記事データ取得
   useEffect(() => {
-    if(selectedCategory){
+    if (selectedCategory) {
       fetch(`/data/${selectedCategory}.json`)
         .then((res) => res.json())
         .then((data) => setArticles(data));
@@ -38,18 +36,17 @@ function Articles(){
             className={selectedCategory === category.id ? "active" : ""}
             onClick={() => setSelectedCategory(category.id)}
           >
-            {category.name}  
+            {category.name}
           </button>
         ))}
       </div>
       <div className="articles-grid">
         {articles.map((article) => (
-          <ArticleCard key={article.id} article={article} />
+          <ArticleCard key={article.id} article={article} category={selectedCategory!} />
         ))}
       </div>
     </div>
   );
 }
-
 
 export default Articles;

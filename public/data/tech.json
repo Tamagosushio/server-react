@@ -1,9 +1,12 @@
 [
   {
-    "id": 2,
-    "title": "Reactの学習",
-    "description": "Reactの基礎を学びました。",
-    "image": "/images/react.png",
-    "link": "/articles/2"
+    "id": "1",
+    "title": "tech-test1",
+    "content": "<p>this is TECH-TEST1</p><img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZhWsiEPiPGOLyIEwao2KZaFatQnXrPnr59g&s' />"
+  },
+  {
+    "id": "2",
+    "title": "tech-test2",
+    "content": "<h2>this is TECH-TEST2</h2>"
   }
 ]

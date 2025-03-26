@@ -7,13 +7,13 @@ type ArticleProps = {
     title: string;
     description: string;
     image: string;
-    link: string;
-  }
+  };
+  category: string;
 };
 
-function ArticleCard({ article }: ArticleProps){
+function ArticleCard({ article, category }: ArticleProps) {
   return (
-    <Link to={article.link} className="article-card">
+    <Link to={`/articles/${category}/${article.id}`} className="article-card">
       <img src={article.image} alt={article.title} />
       <h3>{article.title}</h3>
       <p>{article.description}</p>
@@ -21,4 +21,4 @@ function ArticleCard({ article }: ArticleProps){
   );
 }
 
-export default ArticleCard
+export default ArticleCard;
