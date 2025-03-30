@@ -1,16 +1,9 @@
 [
   {
-    "id": "1",
-    "title": "diary-test1",
-    "description": "日記的なもののテスト1",
-    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZhWsiEPiPGOLyIEwao2KZaFatQnXrPnr59g&s",
-    "file": "/articles/diary/diary-test1.html"
-  },
-  {
-    "id": "2",
-    "title": "diary-test2",
-    "description": "日記的なもののテスト2",
-    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsO0oOwbWAShzYZINg5naVDRdOUNhncCmKtA&s",
-    "file": "/articles/diary/diary-test2.html"
+    "id": "procon35",
+    "title": "procon35体験記",
+    "description": "2024年開催の高専プロコンに参加しました。",
+    "image": "https://www.salesio-sp.ac.jp/main/project/img/d2_99.jpg",
+    "file": "/articles/diary/procon35.html"
   }
 ]

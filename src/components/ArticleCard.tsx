@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "./ArticleCard.css";
+import { useDarkMode } from "../context/DarkModeContext";
 
 type ArticleProps = {
   article: {
@@ -12,12 +12,23 @@ type ArticleProps = {
 };
 
 function ArticleCard({ article, category }: ArticleProps) {
+  const { isDarkMode } = useDarkMode();
   return (
-    <Link to={`/articles/${category}/${article.id}`} className="article-card">
-      <img src={article.image} alt={article.title} />
-      <h3>{article.title}</h3>
-      <p>{article.description}</p>
-    </Link>
+    <div
+      className={`card h-100 ${isDarkMode ? "text-white" : "text-dark"}`}
+      style={{
+        backgroundColor: isDarkMode ? "#111" : "",
+        transition: "background-color 0.3s ease-in-out",
+      }}
+    >
+      <Link to={`/articles/${category}/${article.id}`} className="text-decoration-none">
+        <img src={article.image} className="card-img-top" alt={article.title} />
+        <div className="card-body text-center">
+          <h5 className="card-title">{article.title}</h5>
+          <p className="card-text">{article.description}</p>  
+        </div>
+      </Link>
+    </div>
   );
 }
 

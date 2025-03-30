@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import ArticleCard from "../components/ArticleCard";
-import "./Articles.css";
 
 function Articles() {
   const [categories, setCategories] = useState<{ id: string; name: string }[]>([]);
@@ -27,22 +26,25 @@ function Articles() {
   }, [selectedCategory]);
 
   return (
-    <div className="container mt-5">
-      <h1 className="text-center">記事一覧</h1>
-      <div className="tabs">
+    <div className="container mt-5 pt-5">
+      <h1 className="text-center mb-4">記事一覧</h1>
+      <ul className="nav nav-tabs justify-content-center mb-4">
         {categories.map((category) => (
-          <button
-            key={category.id}
-            className={selectedCategory === category.id ? "active" : ""}
-            onClick={() => setSelectedCategory(category.id)}
-          >
-            {category.name}
-          </button>
+          <li className="nav-item" key={category.id}>
+            <button
+              className={`nav-link ${selectedCategory === category.id ? "active" : ""}`}
+              onClick={() => setSelectedCategory(category.id)}
+            >
+              {category.name}
+            </button>
+          </li>
         ))}
-      </div>
-      <div className="articles-grid">
+      </ul>
+      <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-2">
         {articles.map((article) => (
-          <ArticleCard key={article.id} article={article} category={selectedCategory!} />
+          <div key={article.id} className="col d-flex justify-content-center">
+            <ArticleCard key={article.id} article={article} category={selectedCategory!} />
+          </div>
         ))}
       </div>
     </div>
