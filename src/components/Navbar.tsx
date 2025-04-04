@@ -92,6 +92,15 @@ function Navbar() {
                       アプリ
                     </Link>
                   </li>
+                  <li className="nav-item">
+                    <Link
+                      to="/words"
+                      className={`nav-link ${location.pathname === "/words" ? "active" : ""}`}
+                      data-bs-dismiss="offcanvas"
+                    >
+                      単語帳
+                    </Link>
+                  </li>
                 </ul>
                 <button
                   className={`btn ${isDarkMode ? "btn-outline-light" : "btn-outline-dark"} mt-3`}
@@ -120,6 +129,14 @@ function Navbar() {
                   className={`nav-link ${location.pathname === "/apps" ? "active" : ""}`}
                 >
                   アプリ
+                </Link>
+              </li>
+              <li className="nav-item me-3">
+                <Link
+                  to="/words"
+                  className={`nav-link ${location.pathname === "/words" ? "active" : ""}`}
+                >
+                  単語帳
                 </Link>
               </li>
               <li>
