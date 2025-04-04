@@ -2,7 +2,7 @@ import React from "react";
 
 function Apps() {
   return (
-    <div className="container mt-5 pt-5">
+    <div className="container">
       <h1 className="text-center mb-4">たまごすしのホームページ</h1>
       <p>
         webの勉強がてらに作ったので、UIやデザインがころころと変わります。<br/>

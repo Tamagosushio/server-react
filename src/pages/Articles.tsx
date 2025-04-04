@@ -26,7 +26,7 @@ function Articles() {
   }, [selectedCategory]);
 
   return (
-    <div className="container mt-5 pt-5">
+    <div className="container">
       <h1 className="text-center mb-4">記事一覧</h1>
       <ul className="nav nav-tabs justify-content-center mb-4">
         {categories.map((category) => (

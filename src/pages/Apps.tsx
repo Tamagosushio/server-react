@@ -2,7 +2,7 @@ import React from "react";
 
 function Apps() {
   return (
-    <div className="container mt-5 pt-5">
+    <div className="container">
       <h1 className="text-center">アプリページ</h1>
       <p>
         作ったwebアプリを雑多に置きます。
@@ -14,7 +14,6 @@ function Apps() {
       </h3>
       <p>
         公式サイトで公開されている操作データを元に、実際の試合の様子を再現したものです。<br/>
-
       </p>
     </div>
   );
