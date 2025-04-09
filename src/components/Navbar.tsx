@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useDarkMode } from "../context/DarkModeContext";
 import { useEffect, useState } from "react";
+import * as bootstrap from "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
@@ -78,7 +79,6 @@ function Navbar() {
                     <Link
                       to="/articles"
                       className={`nav-link ${location.pathname === "/articles" ? "active" : ""}`}
-                      data-bs-dismiss="offcanvas"
                     >
                       記事
                     </Link>
@@ -87,7 +87,6 @@ function Navbar() {
                     <Link
                       to="/apps"
                       className={`nav-link ${location.pathname === "/apps" ? "active" : ""}`}
-                      data-bs-dismiss="offcanvas"
                     >
                       アプリ
                     </Link>
@@ -96,7 +95,6 @@ function Navbar() {
                     <Link
                       to="/words"
                       className={`nav-link ${location.pathname === "/words" ? "active" : ""}`}
-                      data-bs-dismiss="offcanvas"
                     >
                       単語帳
                     </Link>
