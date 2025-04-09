@@ -28,8 +28,8 @@ function Words() {
           </tr>
         </thead>
         <tbody>
-          {words.map((word) => (
-            <tr>
+          {words.map((word, idx) => (
+            <tr key={idx}>
               <td style={cellStyle}>{word.word}</td>
               <td style={cellStyle}>{word.mean}</td>
             </tr>
