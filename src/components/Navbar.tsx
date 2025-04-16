@@ -24,6 +24,9 @@ function Navbar() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const navbarItems:string[][] 
+    = [["/articles", "記事"], ["/apps", "アプリ"], ["/words", "単語帳"]];
+
   return (
     <nav
       className={`navbar fixed-top ${isDarkMode ? "navbar-dark" : "navbar-light"}`}
@@ -75,30 +78,16 @@ function Navbar() {
               </div>
               <div className="offcanvas-body">
                 <ul className="navbar-nav">
-                  <li className="nav-item">
-                    <Link
-                      to="/articles"
-                      className={`nav-link ${location.pathname === "/articles" ? "active" : ""}`}
-                    >
-                      記事
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link
-                      to="/apps"
-                      className={`nav-link ${location.pathname === "/apps" ? "active" : ""}`}
-                    >
-                      アプリ
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link
-                      to="/words"
-                      className={`nav-link ${location.pathname === "/words" ? "active" : ""}`}
-                    >
-                      単語帳
-                    </Link>
-                  </li>
+                  {navbarItems.map((item) => (
+                    <li className="nav-item" key={item[0]}>
+                      <Link
+                        to={item[0]}
+                        className={`nav-link ${location.pathname === item[0] ? "active" : ""}`}
+                      >
+                        {item[1]}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
                 <button
                   className={`btn ${isDarkMode ? "btn-outline-light" : "btn-outline-dark"} mt-3`}
@@ -113,30 +102,16 @@ function Navbar() {
           <>
             {/* 通常メニュー（横並び） */}
             <ul className="navbar-nav ms-auto me-3 d-flex flex-row align-items-center">
-              <li className="nav-item me-3">
-                <Link
-                  to="/articles"
-                  className={`nav-link ${location.pathname === "/articles" ? "active" : ""}`}
-                >
-                  記事
-                </Link>
-              </li>
-              <li className="nav-item me-3">
-                <Link
-                  to="/apps"
-                  className={`nav-link ${location.pathname === "/apps" ? "active" : ""}`}
-                >
-                  アプリ
-                </Link>
-              </li>
-              <li className="nav-item me-3">
-                <Link
-                  to="/words"
-                  className={`nav-link ${location.pathname === "/words" ? "active" : ""}`}
-                >
-                  単語帳
-                </Link>
-              </li>
+              {navbarItems.map((item) => (
+                <li className="nav-item me-3" key={item[0]}>
+                  <Link
+                    to={item[0]}
+                    className={`nav-link ${location.pathname === item[0] ? "active" : ""}`}
+                  >
+                    {item[1]}
+                  </Link>
+                </li>
+              ))}
               <li>
                 <button
                   className={`btn ${isDarkMode ? "btn-outline-light" : "btn-outline-dark"}`}
