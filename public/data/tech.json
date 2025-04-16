@@ -1,2 +1,9 @@
 [
+  {
+    "id": "python-easing",
+    "title": "Pythonのイージング関数",
+    "description": "研究で必要になりそうなので作ってみました",
+    "image": "/articles/tech/images/python-easing/thumbnail.png",
+    "file": "/articles/tech/python-easing.html"
+  }
 ]
