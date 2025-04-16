@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDarkMode } from "../context/DarkModeContext";
+import hljs from "highlight.js";
+import "highlight.js/styles/github-dark.css"; // テーマは自由に選べます
+import "./ArticleDetail.css";
+
 
 interface Article {
   id: string;
@@ -15,7 +19,33 @@ function ArticleDetail() {
   const { isDarkMode } = useDarkMode();
   const [article, setArticle] = useState<Article | null>(null);
   const [content, setContent] = useState<string | null>(null);
-
+  useEffect(() => {
+    if (content) {
+      hljs.highlightAll();
+      document.querySelectorAll("pre code").forEach((block) => {
+        const code = block.textContent || "";
+        const pre = block.parentElement;
+        if(pre){
+          const wrapper = document.createElement("div");
+          wrapper.className = "code-block-wrapper";
+          pre.parentElement?.insertBefore(wrapper, pre);
+          wrapper.appendChild(pre);
+          const button = document.createElement("button");
+          button.textContent = "Copy";
+          button.className = "copy-button";
+          button.addEventListener("click", () => {
+            navigator.clipboard.writeText(code).then(() => {
+              button.textContent = "Copied";
+              setTimeout(() => {
+                button.textContent = "Copy";
+              }, 2000);
+            })
+          })
+          wrapper.appendChild(button);
+        }
+      });
+    }
+  }, [content]);
   useEffect(() => {
     fetch("/data/categories.json")
       .then((res) => res.json())

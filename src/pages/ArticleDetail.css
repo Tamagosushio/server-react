@@ -1,0 +1,53 @@
+/* 行番号追加のためのスタイル */
+.hljs {
+  padding-left: 3em;
+  position: relative;
+  counter-reset: linenumber;
+}
+
+.hljs code {
+  white-space: pre;
+}
+
+/* 行番号 */
+.hljs .line-number {
+  position: absolute;
+  left: 0;
+  width: 2.5em;
+  padding-right: 0.5em;
+  text-align: right;
+  color: #888;
+  user-select: none; /* 行番号は選択不可 */
+  pointer-events: none;
+}
+
+/* コピーボタン */
+.code-block-wrapper {
+  position: relative;
+}
+
+.copy-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: #eee;
+  border: none;
+  padding: 5px 10px;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.copy-button:hover {
+  background-color: #ddd;
+}
+
+.dark .copy-button {
+  background-color: #333;
+  color: white;
+}
+
+.dark .copy-button:hover {
+  background-color: #444;
+}
