@@ -4,14 +4,14 @@
     "date": "2025/04/16",
     "title": "Pythonのイージング関数",
     "description": "研究で必要になりそうなので作ってみました",
-    "image": "/articles/tech/images/python-easing/thumbnail.png",
-    "file": "/articles/tech/python-easing.html"
+    "image": "/articles/tech/python-easing/thumbnail.png",
+    "file": "/articles/tech/python-easing/python-easing.html"
   },{
     "id": "python-post-discord",
     "date": "2025/04/17",
     "title": "Pythonでテキストや画像をDiscordに送信",
     "description": "研究であったら便利そうなので作りました",
-    "image": "/articles/tech/images/python-post-discord/thumbnail.png",
-    "file": "/articles/tech/python-post-discord.html"
+    "image": "/articles/tech/python-post-discord/thumbnail.png",
+    "file": "/articles/tech/python-post-discord/python-post-discord.html"
   }
 ]
