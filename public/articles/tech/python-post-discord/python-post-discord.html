@@ -43,44 +43,5 @@ def post_discord(message = str, files_path_list: list[str] = []):
       <code>payload</code>に本文の文字列を入れ、<code>requests_post()</code>の<code>files</code>引数にバイナリで開いたファイルを渡しています。<br>
     </p>
   </div>
-
-
-<!-- 
-    <h3>動機</h3>
-    <p>
-      実は私、研究室では手話の研究を行っておりまして、機械学習には時系列データをぶち込むんですよ。<br>
-      そこで、別々の手話を表す2つの時系列データを繋げて、データ量を水増ししようみたいな試みがありまして、愚直な線形で繋げる以外にも色々緩急をつけてみよう。それでイージング関数を作ることにしました。<br>
-      <a href="https://github.com/Tamagosushio/Easing-Python">作成したレポジトリはこちらに。</a><br>
-    </p>
-
-    <h3>実装</h3>
-    <p>
-      <a href="https://easings.net/ja">イージング関数チートシート</a>を参考にしました。AviUtlで散々見たやつですね。<br>
-      数式の定義が載っているのですが、TypeScriptで書かれているのでそ、Pythonに変換にする必要がありました。<br>
-      あまりにそのまま変換したので、ひどいものは
-      <pre><code class="language-python">
-def easeInOutElastic(x):
-  0.0 if x == 0.0 else 1.0 if x == 1.0 else -(math.pow(2, 20*x - 10)*math.sin((20*x - 11.125) * __c5__))/2 if x < 0.5 else (math.pow(2, -20*x + 10)*math.sin((20*x - 11.125)*__c5__))/2 + 1
-      </code></pre>
-      のような三項演算子のオンパレードになってしまいました。まあ動けばよし！<br>
-      とまあこんなかんじで、10*3種類のイージング関数を作りました。
-    </p>
-
-    <h3>結果</h3>
-    <p>
-      0.0~1.0の連続値をイージング関数に入れたものが下のグラフ群になります。<br>
-      まあまあ成功してますね！
-      <img src="./images/python-easing/0010.png" class="img-fluid d-block mx-auto my-3" style="max-width: 40rem;">
-      これを研究で使っているデータに適用してみました。<br>
-      -0.8で終わって-1.3から始まるデータをイージング関数を使って繋げてみたらこんなかんじ。<br>
-      青色が元データの部分で、橙色のが接続した部分です。
-      <img src="./images/python-easing/0020.png" class="img-fluid d-block mx-auto my-3" style="max-width: 40rem;">
-      なんだかとってもいいかんじ～<br>
-
-    <h3>おわり</h3>
-    <p>
-      ざっと調べたかんじ、イージング関数がpip等のライブラリになかったので作ってみました。<br>
-      pipの登録って結構簡単にできるみたいなので、ファイル整備したらやってみようかな～。
-    </p> -->
 </body>
 </html>
