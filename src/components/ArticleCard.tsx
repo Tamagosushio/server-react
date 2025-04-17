@@ -4,6 +4,7 @@ import { useDarkMode } from "../context/DarkModeContext";
 type ArticleProps = {
   article: {
     id: number;
+    date: string;
     title: string;
     description: string;
     image: string;
@@ -25,6 +26,7 @@ function ArticleCard({ article, category }: ArticleProps) {
         <img src={article.image} className="card-img-top" alt={article.title} />
         <div className="card-body text-center">
           <h5 className="card-title">{article.title}</h5>
+          <h6 className="card-subtitle">{article.date}</h6>
           <p className="card-text">{article.description}</p>  
         </div>
       </Link>

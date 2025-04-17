@@ -8,6 +8,7 @@ import "./ArticleDetail.css";
 
 interface Article {
   id: string;
+  date: string;
   title: string;
   description: string;
   image: string;
@@ -83,6 +84,7 @@ function ArticleDetail() {
   return (
     <div className={`container ${isDarkMode ? "bg-dark text-light" : "bg-light text-dark"}`}>
       <h1 className="text-center mb-4">{article.title}</h1>
+      <h4 className="text-center mb-4">{article.date}</h4>
       {article.image && (
         <div className="text-center mb-4">
           <img src={article.image} alt={article.title} className="img-fluid rounded" style={{ maxHeight: "400px" }} />

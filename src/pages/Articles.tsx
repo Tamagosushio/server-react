@@ -4,7 +4,7 @@ import ArticleCard from "../components/ArticleCard";
 function Articles() {
   const [categories, setCategories] = useState<{ id: string; name: string }[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [articles, setArticles] = useState<{ id: number; title: string; description: string; image: string }[]>([]);
+  const [articles, setArticles] = useState<{ id: number; date:string; title: string; description: string; image: string }[]>([]);
 
   // 記事カテゴリ取得
   useEffect(() => {
@@ -41,7 +41,7 @@ function Articles() {
         ))}
       </ul>
       <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-2">
-        {articles.map((article) => (
+        {articles.slice().reverse().map((article) => (
           <div key={article.id} className="col d-flex justify-content-center">
             <ArticleCard key={article.id} article={article} category={selectedCategory!} />
           </div>
