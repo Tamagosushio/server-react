@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pythonでテキストや画像をDiscordに送信</title>
+</head>
+<body>
+  <div class="container my-5">
+    <h3>はじめ</h3>
+    <p>
+      研究で機械学習を使っているのですが、1個のモデルを学習し終わるのに1時間強ぐらいかかります。<br>
+      毎回十数個のモデルを作成するので、一回学習を回し始めると2つのGPUを並列で使っても5,6時間はかかるわけです。<br>
+      そのため、研究室から出る前に学習を始めるのですが、結果を見るにはまた研究室に行く必要がありました。<br>
+      いちいち研究室に行くのは面倒なので、DiscordのWebhookを使って学習結果のjsonを送信させることにしました。
+    </p>
+
+    <h3>実装</h3>
+    <p>
+      というわけで書きました。下のコードをコピペして<code>WEBHOOK_URL</code>を変更すれば動くはずです。<br>
+      URLの取得については、こちらの<a href="https://zenn.dev/lambta/articles/5edbda4ccb1ec6">「外部サービスからDiscordにメッセージを送る（Webhook）」</a>が参考になります。<br>
+      <code>post_discord()</code>の引数に、メッセージ本文と送信したいpng画像のファイルパスリストを与えれやれば動きます。
+      <pre><code class="language-python">
+# この定数は自身で変更する
+WEBHOOK_URL = "https://discord.com/api/webhooks/1234567890/hogehoge"
+def post_discord(message = str, files_path_list: list[str] = []):
+  payload = {}
+  payload["content"] = message
+  # 画像ファイルをmultipart formに追加
+  multiple_files = []
+  for i, file_path in enumerate(files_path_list):
+    multiple_files.append((
+      f"files[{i}]", (f"image{i+1}.png", open(file_path, "rb"), "image/png")
+    ))
+  # リクエスト送信
+  response = requests.post(WEBHOOK_URL, data={"payload_json": json.dumps(payload)}, files=multiple_files)
+  # 開いたファイルを閉じる
+  for name, filetuple in multiple_files:
+    if isinstance(filetuple, tuple) and filetuple[1]:
+      filetuple[1].close()
+      </code></pre>
+      変に複雑に見えますが、やっていること自体は簡単で、メッセージやファイルを整形してWebhookにPOST送信しているだけです。<br>
+      <code>payload</code>に本文の文字列を入れ、<code>requests_post()</code>の<code>files</code>引数にバイナリで開いたファイルを渡しています。<br>
+    </p>
+  </div>
+
+
+<!-- 
+    <h3>動機</h3>
+    <p>
+      実は私、研究室では手話の研究を行っておりまして、機械学習には時系列データをぶち込むんですよ。<br>
+      そこで、別々の手話を表す2つの時系列データを繋げて、データ量を水増ししようみたいな試みがありまして、愚直な線形で繋げる以外にも色々緩急をつけてみよう。それでイージング関数を作ることにしました。<br>
+      <a href="https://github.com/Tamagosushio/Easing-Python">作成したレポジトリはこちらに。</a><br>
+    </p>
+
+    <h3>実装</h3>
+    <p>
+      <a href="https://easings.net/ja">イージング関数チートシート</a>を参考にしました。AviUtlで散々見たやつですね。<br>
+      数式の定義が載っているのですが、TypeScriptで書かれているのでそ、Pythonに変換にする必要がありました。<br>
+      あまりにそのまま変換したので、ひどいものは
+      <pre><code class="language-python">
+def easeInOutElastic(x):
+  0.0 if x == 0.0 else 1.0 if x == 1.0 else -(math.pow(2, 20*x - 10)*math.sin((20*x - 11.125) * __c5__))/2 if x < 0.5 else (math.pow(2, -20*x + 10)*math.sin((20*x - 11.125)*__c5__))/2 + 1
+      </code></pre>
+      のような三項演算子のオンパレードになってしまいました。まあ動けばよし！<br>
+      とまあこんなかんじで、10*3種類のイージング関数を作りました。
+    </p>
+
+    <h3>結果</h3>
+    <p>
+      0.0~1.0の連続値をイージング関数に入れたものが下のグラフ群になります。<br>
+      まあまあ成功してますね！
+      <img src="./images/python-easing/0010.png" class="img-fluid d-block mx-auto my-3" style="max-width: 40rem;">
+      これを研究で使っているデータに適用してみました。<br>
+      -0.8で終わって-1.3から始まるデータをイージング関数を使って繋げてみたらこんなかんじ。<br>
+      青色が元データの部分で、橙色のが接続した部分です。
+      <img src="./images/python-easing/0020.png" class="img-fluid d-block mx-auto my-3" style="max-width: 40rem;">
+      なんだかとってもいいかんじ～<br>
+
+    <h3>おわり</h3>
+    <p>
+      ざっと調べたかんじ、イージング関数がpip等のライブラリになかったので作ってみました。<br>
+      pipの登録って結構簡単にできるみたいなので、ファイル整備したらやってみようかな～。
+    </p> -->
+</body>
+</html>
