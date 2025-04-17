@@ -23,7 +23,28 @@ function ArticleCard({ article, category }: ArticleProps) {
       }}
     >
       <Link to={`/articles/${category}/${article.id}`} className="text-decoration-none">
-        <img src={article.image} className="card-img-top" alt={article.title} />
+        <div
+          style={{
+            width: "100%",
+            aspectRatio: "1 / 1",
+            backgroundColor: isDarkMode ? "#222" : "#eee", // ここを切り替え
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            transition: "0.3s",
+          }}
+        >
+          <img
+            src={article.image}
+            className="card-img-top"
+            alt={article.title}
+            style={{
+              maxWidth: "100%",
+              maxHeight: "100%",
+              objectFit: "contain",
+            }}
+          />
+        </div>
         <div className="card-body text-center">
           <h5 className="card-title">{article.title}</h5>
           <h6 className="card-subtitle">{article.date}</h6>
