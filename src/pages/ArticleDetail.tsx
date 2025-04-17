@@ -81,7 +81,7 @@ function ArticleDetail() {
   }
 
   return (
-    <div className={`container mt-5 pt-5 ${isDarkMode ? "bg-dark text-light" : "bg-light text-dark"}`}>
+    <div className={`container ${isDarkMode ? "bg-dark text-light" : "bg-light text-dark"}`}>
       <h1 className="text-center mb-4">{article.title}</h1>
       {article.image && (
         <div className="text-center mb-4">
