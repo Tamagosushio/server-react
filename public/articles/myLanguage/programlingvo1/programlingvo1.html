@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>自作言語を作ってみたい</title>
+</head>
+<body>
+  <div class="container my-5">
+
+    <h3>動機</h3>
+    <p>
+      自分で言語を作るってかっこいいですよね。<br>
+      なので、作ります。<br>
+      <a href="https://github.com/Tamagosushio/programlingvo">これがリポジトリです。</a><br>
+      （READMEとかは全然整備してません……）
+    </p>
+
+    <h3>特徴</h3>
+    <p>
+      「ぼくのかんがえたさいきょうのぷろぐらみんぐげんご」を作るにあたって、ある程度特徴を決めないといけません。<br>
+      なので、私が欲しいなぁと思う特徴を適当に列挙し以下に並べてみます。<br>
+      <ul>
+        <li>エスペラント語ベース</li>
+        <ul>
+          <li>最近エスペラント語を勉強しているので</li>
+          <li>if文 -> se文、for文 -> por文、のようにごく簡単に置き換える</li>
+        </ul>
+        <li>手続き型言語</li>
+        <ul>
+          <li>JavaScriptのような関数型言語の側面も入れたい</li> 
+          <li>ラムダ関数や、カリー化など</li>
+        </ul>
+        <li>JIS配列で入力するのが楽な言語</li>
+        <li>C++, Python, JavaScriptを合体させたような文法</li>
+        <li>文はセミコロン区切り</li>
+      </ul>
+      とまあ、こんな具合で。<br>
+      実装途中に思いついたとかのもどんどん入れていきます。
+    </p>
+
+    <h3>構文解析(parser)</h3>
+    <p>
+      とりあえず構文解析は、
+      <a href="https://zenn.dev/charako/articles/bd9d722a8d48c9">
+        『自作プログラミング言語を初級者が1週間で作る方法』
+      </a>を参考に、<br>Node.jsの
+      <a href="https://peggyjs.org/online.html">
+        Peggy
+      </a>を書いていきます。<br>
+      簡単に言うと、<br>
+      構文が正しく書けているかは、いったんJavaScriptに変換&実行して確かめよう！<br>
+      といったかんじです。<br>
+      当然このインタプリタだけでも十分に動きますが、それだけだと味気ないので、もっと発展させたいところではあります。<br>
+    </p>
+
+    <h3>実装</h3>
+
+  </div>
+</body>
+</html>

@@ -1,4 +1,5 @@
 [
   { "id": "diary", "name": "日記な" },
-  { "id": "tech", "name": "技術的な" }
+  { "id": "tech", "name": "技術的な" },
+  { "id": "myLanguage", "name": "自作言語"}
 ]
