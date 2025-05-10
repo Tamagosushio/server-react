@@ -20,6 +20,24 @@ function ArticleDetail() {
   const { isDarkMode } = useDarkMode();
   const [article, setArticle] = useState<Article | null>(null);
   const [content, setContent] = useState<string | null>(null);
+  
+  useEffect(() => {
+    const existingLink = document.getElementById("hljs-theme") as HTMLLinkElement | null;
+    const newHref = isDarkMode
+      ? "https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github-dark.css"
+      : "https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github.css";
+
+    if (existingLink) {
+      existingLink.href = newHref;
+    } else {
+      const link = document.createElement("link");
+      link.id = "hljs-theme";
+      link.rel = "stylesheet";
+      link.href = newHref;
+      document.head.appendChild(link);
+    }
+  }, [isDarkMode]);
+
   useEffect(() => {
     if (content) {
       hljs.highlightAll();
@@ -43,10 +61,17 @@ function ArticleDetail() {
             })
           })
           wrapper.appendChild(button);
+          const filenameAttr = block.getAttribute("filename");
+          if(filenameAttr){
+            const filenameDiv = document.createElement("div");
+            filenameDiv.className = "filename";
+            filenameDiv.textContent = filenameAttr;
+            wrapper.appendChild(filenameDiv);
+          }
         }
       });
     }
-  }, [content]);
+  }, [content, isDarkMode]);
   useEffect(() => {
     fetch("/data/categories.json")
       .then((res) => res.json())

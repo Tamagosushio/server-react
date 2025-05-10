@@ -51,3 +51,23 @@
 .dark .copy-button:hover {
   background-color: #444;
 }
+
+/* ファイル名表示 */
+.filename {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background-color: #f5f5f5;
+  padding: 3px 8px;
+  font-size: 0.75rem;
+  font-family: monospace;
+  border-radius: 4px;
+  color: #333;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.dark .filename {
+  background-color: #222;
+  color: #eee;
+}
