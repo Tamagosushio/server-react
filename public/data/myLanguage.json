@@ -1,10 +1,10 @@
 [
   {
     "id": "programlingvo1",
-    "date": "2025/05/09",
+    "date": "2025/05/10",
     "title": "自作言語を作ってみたい(1)",
     "description": "エスペラント語ベースに、様々なプログラミング言語の文法をミックスした言語を作ります。",
-    "image": "",
+    "image": "/articles/myLanguage/programlingvo1/thumbnail.png",
     "file": "/articles/myLanguage/programlingvo1/programlingvo1.html"
   }
 ]
