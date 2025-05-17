@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useDarkMode } from "../context/DarkModeContext";
 import hljs from "highlight.js";
 import "highlight.js/styles/github-dark.css"; // テーマは自由に選べます
@@ -17,6 +17,7 @@ interface Article {
 
 function ArticleDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { isDarkMode } = useDarkMode();
   const [article, setArticle] = useState<Article | null>(null);
   const [content, setContent] = useState<string | null>(null);
@@ -70,8 +71,17 @@ function ArticleDetail() {
           }
         }
       });
+      document.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", (e) => {
+          const href = link.getAttribute("href");
+          if (href && href.startsWith("/articles/")) {
+            e.preventDefault();
+            navigate(href);
+          }
+        });
+      });
     }
-  }, [content, isDarkMode]);
+  }, [content, isDarkMode, navigate]);
   useEffect(() => {
     fetch("/data/categories.json")
       .then((res) => res.json())
