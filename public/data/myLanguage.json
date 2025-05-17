@@ -6,5 +6,13 @@
     "description": "エスペラント語ベースに、様々なプログラミング言語の文法をミックスした言語を作ります。",
     "image": "/articles/myLanguage/programlingvo1/thumbnail.png",
     "file": "/articles/myLanguage/programlingvo1/programlingvo1.html"
+  },
+  {
+    "id": "programlingvo2",
+    "date": "2025/05/17",
+    "title": "自作言語を作ってみたい(2)",
+    "description": "エスペラント語ベースに、様々なプログラミング言語の文法をミックスした言語を作ります。",
+    "image": "/articles/myLanguage/programlingvo2/thumbnail.png",
+    "file": "/articles/myLanguage/programlingvo2/programlingvo2.html"
   }
 ]

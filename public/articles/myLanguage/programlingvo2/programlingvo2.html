@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>自作言語を作ってみたい</title>
+</head>
+<body>
+  <div class="container my-5">
+    <h2>はじめに</h2>
+    <p>
+      <a href="/articles/myLanguage/programlingvo1">前回の記事</a>では、エスペラント語ベースに、様々なプログラミング言語の文法をミックスした言語を作りました。<br>
+      今回は、前回の記事で作成した言語の文法をさらに整備していきます。
+    </p>
+    <h3>配列</h3>
+    <p>      
+      <pre><code>
+MemberExpression
+  = base:Term tail:(_ MemberAccess)* {
+    return tail.reduce((acc, x) => `${acc}${x[1]}`, base);
+  }
+MemberAccess
+  = "." idx:[0-9]+ {
+    return `[${idx.join("")}]`;
+  } / "[" _ idx:Expression _ "]" {
+    return `[${idx}]`;
+  }
+ArrayLiteral
+  = "[" _ elements:(Expression (_ "," _ Expression)*)? _ ","? _ "]" {
+    const allElements = elements
+      ? [elements[0], ...(elements[1].map(x => x[3]))]
+      : [];
+    return `[${allElements.join(", ")}]`;
+  }
+      </code></pre>
+      とまあ<code>var listo = [0,1,2]</code>のようにして、配列を作ることができます。<br>
+      そして配列の要素へのアクセスですが、<code>listo.0</code>のようにして、<code>0</code>番目の要素にアクセスすることができます。<br>
+      ここはオリジナル要素です。定数であれば<code>.</code>でアクセスできるようにしました。<br>
+      もちろん<code>[]</code>でアクセスすることもできます。<br>
+    </p>
+
+    <h3>代入演算子</h3>
+    <p>
+      <pre><code>
+AssignmentExpression
+  = name:MemberExpression _ op:AssignmentOperator _ value:Expression {
+    return `${name} ${op} ${value}`;
+  }
+AssignmentOperator
+  = "=" / "*=" / "/=" / "%=" / "+=" / "-="
+      </code></pre>
+      まあなんてことはないですね。<br>
+      もともとあった代入式をちょいと変えて、演算子を追加しただけです。
+    </p>
+
+    <h3>標準入出力</h3>
+    <p>
+      主にデバッグ用に作っておきます。Node.jsの<code>console.log</code>をそのまま使えるようにします。<br>
+      また標準入力については、今回は<code>readline-sync</code>を使うので、<br>
+      <pre><code>
+npm install readline-sync
+      </code></pre>
+      でインストールしておきます。<br>
+    </p>
+    <p>
+      関数呼び出しに場合分けして処理します。（かなり突貫気味な実装ですが……）
+      <pre><code>
+CallExpression
+  = callee:MemberExpression tail:(_ Argument)* {
+    if(callee === "$vidigas") return `console.log${tail.map(x => x[1]).join("")}`;
+    else if(callee === "$enigas") return `require("readline-sync").question${tail.map(x => x[1]).join("")}`;
+    else if(callee === "$analizasDecimalon") return `parseFloat${tail.map(x => x[1]).join("")}`;
+    return tail.reduce((acc, x) => `${acc}${x[1]}`, callee);
+  }
+      </code></pre>
+      <code>vidigas()</code>で変数や文字列を標準出力します。また、<code>enigas()</code>で標準入力を受け取ります。<br>
+      この関数は、<code>String</code>型の値を返すため、文字列から数値に変換する<code>analizasDecimalon()</code>も用意しておきました。<br>
+    </p>
+    
+    <h3>引数なしラムダ式</h3>
+    <p>
+      <pre><code>
+LambdaExpression
+  = i:Identifier? _ "@" _ body:(Expression) {
+    return `${i ?? "()"} => ${body}`;
+  }
+      </code></pre>
+      ラムダ式の構文をちょっと変えて、<code>var f = @ "hello";</code>のようにして、<code>f()</code>で<code>"hello"</code>を返す関数を作ることができます。<br>
+      JavaScript側のコードとして、引数宣言がなければ空の丸括弧<code>()</code>を返すようにしています。まあ当たり前ですね。
+    </p>
+
+    <h3>ラムダ式コードブロック</h3>
+    <p>
+      <pre><code>
+LambdaExpression
+  = i:Identifier? _ "@" _ body:(Block / Expression) {
+    return `${i ?? "()"} => ${body}`;
+  }
+      </code></pre>
+      bodyに<code>Block</code>を許可するだけです。
+    </p>
+
+    <h3>return, break, continue</h3>
+    <p>
+      関数のコードブロックを作成した以上、当然return文を実装しなければなりません。<br>
+      そうしないとコードブロックを関数では値を返すことができなくなりますからね。<br>
+      <pre><code>
+ReturnStatement
+  = "redonas" __ e:Expression {
+    return `return ${e}`;
+  }
+ContinueStatement
+  = "dauxrigas" {
+    return `continue`;
+  }
+BreakStatement
+  = "rompas" {
+    return "break";
+  }
+      </code></pre>
+      まあ愚直実装です。それぞれをエスペラント語に訳してキーワードとしておくだけです。<br>s
+    </p>
+    <p>
+      先ほどの標準入出力関数と合わせて、入力された数値の合計を返す関数をこのように作れます。
+      <pre><code>
+var sumigasEnigisDecimalojn = @ {
+  var sumigo = 0;
+  dum(vero){
+    var provizoro = enigas("enigo decimalon: ");
+    se(provizoro == "q")tiam{
+      rompas;
+    }alie{
+      sumigo += analizasDecimalon(provizoro);
+    };
+  };
+  redonas sumigo;
+};        
+      </code></pre>
+      qが入力されたらループを抜けるようにしています。<br>
+      入力された文字列を数値に変換し、変数<code>sumigo</code>に加算していきます。<br>
+      最後に<code>redonas sumigo;</code>で合計を返します。<br>
+    </p>
+
+    <h3>bit演算、インクリメント/デクリメント</h3>
+    <p>
+      <pre><code>
+OrOperator = "aux" / "||"
+AndOperator = "kaj" / "&&"
+BitOperator = "&" / "^" / "|"
+EqualOperator = "==" / "!="
+RelatOperator = ">=" / ">" / "<=" / "<"
+ShiftOperator = ">>>" / ">>" / "<<"
+AddOperator = "+" / "-"
+MultiOperator = "*" / "/" / "%"
+UpdateOperator = "++" / "--"
+NotOperator = "ne" / "!" / "~"
+      </code></pre>
+      これも特筆するべきことはないでしょう。下になるほど優先度高いです。<br>
+      bit演算の式の定義は省略しますが、インクリメント/デクリメントは示しておきます。<br>
+      <pre><code>
+UpdateExpression
+  = i:CallExpression _ op:UpdateOperator? {return `${i}${op ?? ""}`;}
+  / op:UpdateOperator? _ i:CallExpression {return `${op ?? ""}${i}`;}
+      </code></pre>
+      前置と後置の場合分けをしています。<br>
+    </p>
+
+    <h3>負数</h3>
+    <p>
+      ここで、今更になって負の数の定義をしていないことに気づきました。<br>
+      パパっと実装しておきましょう。
+      <pre><code>
+SignedNumber
+  = sign:("+" / "-")? num:Number {
+    return `${sign ?? ""}${num}`;
+  }
+      </code></pre>
+      これで、<code>-12.3</code>のように負の数を表すことができます。<br>
+      しかし、この実装がなくても負数を表現できます。加減算の左の項がないものと考えられますからね。<br>
+      ですがこれでは、たとえば<code>var a = -12.3;</code>のようにした際に、JavaScriptの変換では、<code>let a = null - 12.3;</code>となってしまいます。<br>
+      これでも多分大丈夫でしょうが、何か不具合の元になる可能性があるので絶っておきます。
+    </p>
+
+    <h3>セミコロン位置の調整</h3>
+    <p>
+      現在の実装では、コードブロックも1つの文として認識させているので、<code>}</code>の後ろにセミコロンを付ける必要があります。<br>
+      流石にこれは面倒！ifとかforのコードブロックの後ろにわざわざセミコロン付けるの嫌ですよね！<br>
+      これを修正しようと思ったらもっと面倒なことになってしまいました。
+      <pre><code>
+Program
+  = _ stmts:(
+      s:StatementEndsWithBlock _ {return s;}
+    / s:StatementNeedsSemicolon _ ";" _ {
+        if(s == null) return null;
+        else return `${s};`;
+      }
+    )* e:Expression? _ {
+      const code = stmts.filter(s => s != null).join("\n");
+      const returnCode = e ? `return (${e});` : "";
+      return `(() => {\n${code}${returnCode}\n})()`;
+    }
+Block
+  = "{" _ stmts:(
+      s:StatementEndsWithBlock _ {return s;}
+    / s:StatementNeedsSemicolon _ ";" _ {
+        if(s == null) return null;
+        else return `${s};`;
+      }
+    )* _ "}" {
+      const code = stmts.filter(s => s != null).join("\n");
+      return `{\n${code}\n}`;
+    }
+  
+StatementNeedsSemicolon
+  = DoWhileStatement / VariableDeclaration / ReturnStatement / ContinueStatement / BreakStatement / Expression
+StatementEndsWithBlock
+  = Block / IfThenElseStatement / ForStatement / WhileStatement
+
+IfThenElseStatement
+  = "se" _ "("_ e:Expression _")" _ "tiam" _ trueBody:Block _ "alie" _ falseBody:Block {
+    return `if(${e})${trueBody}else${falseBody}`;
+  }
+ForStatement
+  = "por" _ "(" _ init:(VariableDeclaration / Expression)? _ ";" _ cond:Expression? _ ";" _ update:Expression? _ ")" _ body:(
+      b:Block {return b;}
+      / s:StatementNeedsSemicolon _ ";" _ {return s;}
+    ) {
+    let bodyCode;
+    if(typeof(body) === "string" && body.trim().startsWith("{") && body.trim().endsWith("}")){
+      bodyCode = body;
+    }else if(body == null){
+      bodyCode = `{}`;
+    }else{
+      bodyCode = `{ ${body}; }`;
+    }
+    return `for (${init ?? ""}; ${cond ?? ""}; ${update ?? ""}) ${bodyCode}`;
+  }
+WhileStatement
+  = "dum" _ "(" _ cond:Expression _ ")" _ body:(
+      b:Block {return b;}
+      / s:StatementNeedsSemicolon _ ";" _ {return s;}
+    ) {
+    let bodyCode;
+    if(typeof(body) === "string" && body.trim().startsWith("{") && body.trim().endsWith("}")){
+      bodyCode = body;
+    }else if(body == null){
+      bodyCode = `{}`;
+    }else{
+      bodyCode = `{ ${body}; }`;
+    }
+    return `while (${cond}) ${bodyCode}`;    
+  }
+DoWhileStatement
+  = "fari" _ body:Block _ "dum" _ "(" _ cond:Expression _ ")" {
+    return `do ${body} while(${cond})`;
+  }
+      </code></pre>
+      まず、現在ある文を、コードブロックがひっつく（最後にセミコロンがつかない）可能性があるかどうかで分類分けしています。<br>
+      （<code>statementNeedsSemicolon</code>、<code>statementEndsWithBlock</code>）<br>
+      コードブロックがひっつく可能性のある文(se-tiam-alie, por, dum)は、愚直に場合分けをしました。
+      body部分がコードブロック、<code>{</code>で始まり<code>}</code>で終わっているなら、そのまま<code>body</code>を返します。<br>
+      bodyが何もない、<code>null</code>なら、<code>{}</code>を返します。<br>
+      それ以外の場合、つまり単一文の場合は、コードブロック化させます。<br>
+      そして、<code>Program</code>と<code>Block</code>でも、<code>StatementNeedsSemicolon</code>と<code>StatementEndsWithBlock</code>で場合分け。<br>
+      コードブロックがつく文はセミコロンを不要にします。<br>、つかない文にはセミコロンを必須とします。<br>
+      これが、大まかな概要です。より具体的なことはコードを見てください。見て。これ以上の言語化はむずかしい。
+    </p>
+    
+    <h3>コメント行</h3>
+    <p>
+      大事なものを忘れていました。コメントアウトです。<br>
+      コメントアウトのない言語はカスです。聞いてるか、jsonよ。<br>
+      この言語では、一般的なものに合わせ<code>//</code>で始まる行はコメント行として扱います。<br>
+      <pre><code>
+CommentStatement
+  = "//" content:(![\n\r] .)* {
+    return null;
+  }
+      </code></pre>
+      <code>//</code>で始まる改行文字除く任意の連続文字列を、<code>null</code>として返すようにします。<br>
+      これを、<code>Program</code>と<code>Block</code>の<code>stmts</code>に追加します。<br>
+      <pre><code>
+    s:StatementEndsWithBlock _ {return s;}
+  / s:CommentStatement _ {return s;}
+  / s:StatementNeedsSemicolon _ ";" _ {
+      </code></pre>
+      これで、コメント行が追加できました。<br>
+    </p>
+
+    <h2>まとめ</h2>
+    <p>
+      これでようやく上級のプログラミング言語っぽくなってきたんではないでしょうか。<br>
+      しかし、まだ不満点もありまして……遅い！！<br>
+      単純にJavaScriptへの変換が遅いんですよ。これではダメ。<br>
+      プログラミングにおいて、動作が遅いというのはそれだけで不具合と言えるほどです。<br>
+      ただ、この問題をどう解決するのか……それがまだ定まりきっておらず。<br>
+      前回の記事の最後で言ったように、LLVMでアセンブラを吐かせるようにするか。<br>
+      あるいは、C++のBoostの中に、パーサー機能があるらしいので、それを使ってみるか。それともそれ以外の方法を取るか。<br>
+      とりあえず、まだまだこのシリーズは続きますよ～。      
+    </p>
+  </div>
+</body>
+</html>
