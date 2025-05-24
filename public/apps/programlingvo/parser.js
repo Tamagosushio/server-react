@@ -16,7 +16,7 @@ if(typeof peggy === "undefined" || typeof peggy.generate === "undefined"){
   console.error("Peggyライブラリまたはpeggy.generateが見つかりません");
   if(outputElement){
     outputElement.textContent =
-      "エラー: Peggyライブラリが正しく読み込まれていません。ページを再読み込みしてください。";
+      "エラー: Peggyライブラリが正しく読み込まれていません。\nページを再読み込みしてください。";
   }
 }else{
   // 文法定義を読み込む
@@ -24,12 +24,12 @@ if(typeof peggy === "undefined" || typeof peggy.generate === "undefined"){
     .then((response) => {
       if(!response.ok){
         throw new Error(
-          `文法ファイルの読み込みに失敗しました (HTTP ${response.status})`,
+          `文法ファイルの読み込みに失敗しました \n(HTTP ${response.status})`,
         );
       }
       if(outputElement){
         outputElement.textContent =
-          "文法ファイルを読み込みました。パーサーを生成しています...";
+          "文法ファイルを読み込みました。\nパーサーを生成しています...";
       }
       return response.text();
     })
@@ -43,7 +43,7 @@ if(typeof peggy === "undefined" || typeof peggy.generate === "undefined"){
         }
         if(outputElement){
           outputElement.textContent =
-            "パーサーの準備ができました。コードを入力して実行してください。";
+            "パーサーの準備ができました。\nコードを入力して実行してください。";
         }
       }catch(e){
         console.error("文法の生成に失敗しました:", e);
@@ -68,7 +68,7 @@ function parseCode(){
   }
   if(!parserReady){
     outputElement.textContent =
-      "パーサーの初期化中です。しばらくお待ちください。";
+      "パーサーの初期化中です。\nしばらくお待ちください。";
     return;
   }
   if(!input.trim()){
