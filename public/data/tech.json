@@ -13,5 +13,12 @@
     "description": "研究であったら便利そうなので作りました",
     "image": "/articles/tech/python-post-discord/thumbnail.png",
     "file": "/articles/tech/python-post-discord/python-post-discord.html"
+  },{
+    "id": "siv3d-pendulum",
+    "date": "2025/05/29",
+    "title": "Siv3Dで振り子のシミュレーション",
+    "description": "Siv3Dで振り子のシミュレーションを作ってみました",
+    "image": "/articles/tech/siv3d-pendulum/thumbnail.png",
+    "file": "/articles/tech/siv3d-pendulum/siv3d-pendulum.html"
   }
 ]
