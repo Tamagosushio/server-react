@@ -25,7 +25,7 @@ function Navbar() {
   }, []);
 
   const navbarItems:string[][] 
-    = [["/articles", "記事"], ["/apps", "アプリ"], ["/words", "単語帳"]];
+    = [["/articles", "記事"], ["/apps", "アプリ"], ["/words", "単語帳"], ["/portfolio", "ポートフォリオ"]];
 
   return (
     <nav

@@ -4,6 +4,7 @@ import Articles from "./pages/Articles";
 import ArticleDetail from "./pages/ArticleDetail";
 import Apps from "./pages/Apps";
 import Words from "./pages/Words";
+import Portfolio from "./pages/Portfolio"
 import Navbar from "./components/Navbar";
 import { DarkModeProvider } from "./context/DarkModeContext";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -20,6 +21,7 @@ function App() {
             <Route path="/articles/:category/:id" element={<ArticleDetail />} />
             <Route path="/apps" element={<Apps />} />
             <Route path="/words" element={<Words />} />
+            <Route path="/portfolio" element={<Portfolio />} />
           </Routes>
         </div>
       </Router>
