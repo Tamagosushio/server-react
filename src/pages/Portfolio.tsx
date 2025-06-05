@@ -15,13 +15,13 @@ function Portfolio() {
         今まで作ったものたちを並べて置いておきます。
       </p>
 
-      <h2>高専プロコン関連</h2>
+      <h2 className="text-center">高専プロコン関連</h2>
       <p>第33回、第34回、第35回の競技部門に計3回出場しました。</p>
       <div>
         <h3>第33回</h3>
         <p>
           <a href="https://github.com/UScuber/procon33">https://github.com/UScuber/procon33</a><br/>
-          ビジュアライザを作成しなかったため、通信機能の実装を担当しました。
+          ビジュアライザを作成しなかったため、通信機能の実装のみを担当しました。
         </p>
         <h3>第34回</h3>
         <p>
@@ -45,7 +45,7 @@ function Portfolio() {
         </p>
       </div>
 
-      <h2>過去のインターンシップ関連</h2>
+      <h2 className="text-center">過去のインターンシップ関連</h2>
       <div>
         <h3>しりとりWebアプリ</h3>
         <p>
@@ -63,7 +63,7 @@ function Portfolio() {
         </p>
       </div>
 
-      <h2>趣味</h2>
+      <h2 className="text-center">趣味</h2>
       <p>いろいろなことに手を出しています。</p>
       <div>
         <h3>コミックマーケット</h3>
